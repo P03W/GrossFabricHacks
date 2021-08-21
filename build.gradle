@@ -1,18 +1,17 @@
 plugins {
-    id "fabric-loom" version "0.5-SNAPSHOT"
+    id "fabric-loom" version "0.9-SNAPSHOT"
     id "maven-publish"
-    id "maven"
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_16
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
 repositories {
-    maven {url = "https://dl.bintray.com/user11681/maven"}
+    maven { url = "https://auoeke.jfrog.io/artifactory/maven" }
 }
 
 dependencies {
@@ -25,28 +24,19 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter:+")
 
-    // concern
-    // extraLibs files("${System.getProperty('java.home')}/../lib/tools.jar")
-
     implementation(include("net.bytebuddy:byte-buddy-agent:+"))
-//    implementation(include("net.java.dev.jna:jna:5.3.1"))
-//    implementation(include("net.java.dev.jna:jna-platform:5.3.1"))
 
-    modImplementation(include("user11681:dynamicentry:0.0.2"))
-    include(implementation("user11681:reflect:0.2.0"))
-    include(implementation("net.gudenau.lib:unsafe:1.2.14"))
+    //include(implementation("user11681:reflect:0.2.0"))
+    modImplementation(include("user11681:dynamic-entry:+")) {
+        transitive = false
+    }
 }
 
 processResources {
     inputs.property "version", project.version
 
-    from(sourceSets.main.resources.srcDirs) {
-        include "fabric.mod.json"
+    filesMatching("fabric.mod.json") {
         expand "version": project.version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude "fabric.mod.json"
     }
 }
 
@@ -75,32 +65,5 @@ jar {
                 "Agent-Class": "net.devtech.grossfabrichacks.instrumentation.InstrumentationAgent",
                 "Can-Retransform-Classes": "true"
         )
-    }
-}
-
-// configure the maven publication
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            // add all the jars that should be included when publishing to maven
-            artifact(remapJar) {
-                builtBy remapJar
-            }
-            artifact(sourcesJar) {
-                builtBy remapSourcesJar
-            }
-        }
-    }
-    // select the repositories you want to publish to
-    repositories {
-        File gh = new File(projectDir.parentFile.parentFile, "util/Devan-Repo")
-        System.out.println(gh)
-        if (gh.exists()) {
-            maven {
-                url = gh.absolutePath
-            }
-        }
-        // uncomment to publish to the local maven
-        // mavenLocal()
     }
 }

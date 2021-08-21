@@ -8,6 +8,7 @@ import net.gudenau.lib.unsafe.Unsafe;
 /**
  * works across all normal JVMs I think
  */
+@SuppressWarnings({"unused", "UnusedReturnValue", "unchecked"})
 public class UnsafeUtil extends Unsafe {
     // constants
     public static final boolean x64;
@@ -156,20 +157,6 @@ public class UnsafeUtil extends Unsafe {
         return getKlass(allocateInstance(type));
     }
 
-    /**
-     * get the klass value from a class
-     *
-     * @deprecated doesn't work, idk why todo fix
-     */
-    @Deprecated
-    public static long getKlassFromClass0(Class<?> type) {
-        if (EIGHT_BYTE_KLASS) {
-            return getLong(type, CLASS_KLASS_OFFSET);
-        }
-
-        return getInt(type, CLASS_KLASS_OFFSET);
-    }
-
     public static void putInt(final Object object, final String field, final int value) {
         try {
             putInt(object, objectFieldOffset(object.getClass().getDeclaredField(field)), value);
@@ -249,8 +236,10 @@ public class UnsafeUtil extends Unsafe {
     public static byte[] findClass(final String binaryName) {
         try {
             final InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(binaryName.replace('.', '/') + ".class");
+            assert stream != null;
             final byte[] bytecode = new byte[stream.available()];
-
+    
+            //noinspection StatementWithEmptyBody
             while (stream.read(bytecode) != -1) {}
 
             return bytecode;
