@@ -58,3 +58,20 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 jar {
     from("LICENSE")
 }
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact(remapJar) {
+                builtBy remapJar
+            }
+            artifact(sourcesJar) {
+                builtBy remapSourcesJar
+            }
+        }
+    }
+
+    repositories {
+        mavenLocal()
+    }
+}
