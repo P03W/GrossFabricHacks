@@ -24,8 +24,6 @@ dependencies {
     compileOnly("com.google.code.findbugs:jsr305:+")
     compileOnly("org.jetbrains:annotations:+")
 
-    implementation(include("net.bytebuddy:byte-buddy-agent:+"))
-
     modImplementation(include("user11681:dynamic-entry:+")) {
         // Broken mixins, and its just dev space extras
         transitive = false
@@ -58,12 +56,4 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 
 jar {
     from("LICENSE")
-
-    manifest {
-        attributes(
-                "Manifest-Version": "1.0",
-                "Agent-Class": "net.devtech.grossfabrichacks.instrumentation.InstrumentationAgent",
-                "Can-Retransform-Classes": "true"
-        )
-    }
 }

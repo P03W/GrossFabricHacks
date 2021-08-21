@@ -16,11 +16,6 @@
     "depends": {
         "fabricloader": ">=0.9.3+build.207"
     },
-    "entrypoints": {
-        "masm:register": [
-            "net.devtech.grossfabrichacks.MasmMain"
-        ]
-    },
     "mixins": [
         "masm.mixin.json"
     ],
