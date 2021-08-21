@@ -1,7 +1,7 @@
 package org.spongepowered.asm.mixin.transformer;
 
-import net.devtech.grossfabrichacks.GrossFabricHacks;
-import net.devtech.grossfabrichacks.unsafe.UnsafeUtil;
+import com.github.p03w.masm.GrossFabricHacks;
+import com.github.p03w.masm.unsafe.UnsafeUtil;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.transformer.ext.Extensions;

@@ -1,4 +1,4 @@
-package net.devtech.grossfabrichacks.transformer;
+package com.github.p03w.masm.transformer;
 
 import org.objectweb.asm.tree.ClassNode;
 

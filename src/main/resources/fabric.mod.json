@@ -1,11 +1,12 @@
 {
     "schemaVersion": 1,
-    "id": "grossfabrichacks",
+    "id": "masm",
     "version": "${version}",
-    "name": "GrossFabricHacks",
+    "name": "MassASM",
     "description": "Transform anything and everything",
     "authors": [
-        "HalfOf2"
+        "HalfOf2",
+        "P03W / TheoreticallyUseful (Updating/Striping down of GrossFabricHacks)"
     ],
     "contact": {
         "sources": "https://github.com/Devan-Kerman/Fabric-Transformer"
@@ -20,7 +21,7 @@
         "masm.mixin.json"
     ],
     "languageAdapters": {
-        "gfh": "net.devtech.grossfabrichacks.GrossFabricHacks"
+        "masm": "net.devtech.grossfabrichacks.GrossFabricHacks"
     },
     "custom": {
         "modmenu:api": true

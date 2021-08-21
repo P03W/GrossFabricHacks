@@ -1,4 +1,4 @@
-package net.devtech.grossfabrichacks.entrypoints;
+package com.github.p03w.masm.entrypoints;
 
 public interface TransformerRegistrar {
     void registerTransformers();

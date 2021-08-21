@@ -1,8 +1,8 @@
-package net.devtech.grossfabrichacks.mixin;
+package com.github.p03w.masm.mixin;
 
-import net.devtech.grossfabrichacks.GrossFabricHacks;
-import net.devtech.grossfabrichacks.entrypoints.TransformerRegistrar;
-import net.devtech.grossfabrichacks.transformer.TransformerApi;
+import com.github.p03w.masm.GrossFabricHacks;
+import com.github.p03w.masm.entrypoints.TransformerRegistrar;
+import com.github.p03w.masm.transformer.TransformerApi;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;

@@ -1,4 +1,4 @@
-package net.devtech.grossfabrichacks.unsafe;
+package com.github.p03w.masm.unsafe;
 
 import java.io.InputStream;
 import java.lang.reflect.Array;

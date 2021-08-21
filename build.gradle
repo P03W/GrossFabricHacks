@@ -28,6 +28,7 @@ dependencies {
         // Broken mixins, and its just dev space extras
         transitive = false
     }
+    implementation("net.gudenau.lib:unsafe:1.4.3")
 }
 
 processResources {

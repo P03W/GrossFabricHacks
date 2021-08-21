@@ -1,7 +1,7 @@
-package net.devtech.grossfabrichacks;
+package com.github.p03w.masm;
 
-import net.devtech.grossfabrichacks.transformer.AsmClassTransformer;
-import net.devtech.grossfabrichacks.unsafe.UnsafeUtil;
+import com.github.p03w.masm.transformer.AsmClassTransformer;
+import com.github.p03w.masm.unsafe.UnsafeUtil;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.LanguageAdapter;
 
