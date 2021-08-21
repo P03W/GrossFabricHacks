@@ -2,8 +2,6 @@ package org.spongepowered.asm.mixin.transformer;
 
 import net.devtech.grossfabrichacks.GrossFabricHacks;
 import net.devtech.grossfabrichacks.unsafe.UnsafeUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.transformer.ext.Extensions;
@@ -17,15 +15,8 @@ public class HackedMixinTransformer extends MixinTransformer {
     public static final MixinProcessor processor;
     public static final Extensions extensions;
 
-    private static final Logger LOGGER = LogManager.getLogger("GrossFabricHacks/HackedMixinTransformer");
-
     @Override
     public byte[] transformClass(final MixinEnvironment environment, final String name, byte[] classBytes) {
-        // raw class patching
-        if (GrossFabricHacks.State.transformPreMixinRawClass) {
-            classBytes = GrossFabricHacks.State.preMixinRawClassTransformer.transform(name, classBytes);
-        }
-
         // ASM patching
         return this.transform(environment, this.readClass(classBytes), classBytes);
     }
@@ -45,11 +36,6 @@ public class HackedMixinTransformer extends MixinTransformer {
                 GrossFabricHacks.State.postMixinAsmClassTransformer.transform(name, classNode);
             }
 
-            // post mixin raw patching
-            if (GrossFabricHacks.State.transformPostMixinRawClass) {
-                return GrossFabricHacks.State.postMixinRawClassTransformer.transform(name, this.writeClass(classNode));
-            }
-
             return this.writeClass(classNode);
         }
 
@@ -64,13 +50,9 @@ public class HackedMixinTransformer extends MixinTransformer {
         try {
             final Object mixinTransformer = MixinEnvironment.getCurrentEnvironment().getActiveTransformer();
 
-            LOGGER.info("MixinTransformer found! " + mixinTransformer);
-
             // here, we modify the klass pointer in the object to point towards the HackedMixinTransformer class, effectively turning the existing
             // MixinTransformer instance into an instance of HackedMixinTransformer
             UnsafeUtil.unsafeCast(mixinTransformer, "org.spongepowered.asm.mixin.transformer.HackedMixinTransformer");
-
-            LOGGER.info("Unsafe cast mixin transformer success!");
 
             instance = (HackedMixinTransformer) mixinTransformer;
             

@@ -1,18 +1,13 @@
 package net.devtech.grossfabrichacks;
 
-import net.devtech.grossfabrichacks.transformer.asm.AsmClassTransformer;
-import net.devtech.grossfabrichacks.transformer.asm.RawClassTransformer;
+import net.devtech.grossfabrichacks.transformer.AsmClassTransformer;
 import net.devtech.grossfabrichacks.unsafe.UnsafeUtil;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.LanguageAdapter;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.InputStream;
 
 public class GrossFabricHacks implements LanguageAdapter {
-    private static final Logger LOGGER = LogManager.getLogger("GrossFabricHacks");
-
     @Override
     public native <T> T create(net.fabricmc.loader.api.ModContainer mod, String value, Class<T> type);
 
@@ -21,20 +16,13 @@ public class GrossFabricHacks implements LanguageAdapter {
         public static boolean manualLoad;
 
         public static boolean shouldWrite;
-        // micro-optimization: cache transformer presence
-        public static boolean transformPreMixinRawClass;
         public static boolean transformPreMixinAsmClass;
-        public static boolean transformPostMixinRawClass;
         public static boolean transformPostMixinAsmClass;
-        public static RawClassTransformer preMixinRawClassTransformer;
-        public static RawClassTransformer postMixinRawClassTransformer;
         public static AsmClassTransformer preMixinAsmClassTransformer;
         public static AsmClassTransformer postMixinAsmClassTransformer;
     }
 
     static {
-        LOGGER.info("Fabric Mass ASM is Starting");
-
         try {
             final ClassLoader applicationClassLoader = FabricLoader.class.getClassLoader();
             final ClassLoader KnotClassLoader = GrossFabricHacks.class.getClassLoader();
