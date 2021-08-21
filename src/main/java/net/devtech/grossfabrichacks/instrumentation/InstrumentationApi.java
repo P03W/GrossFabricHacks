@@ -145,13 +145,13 @@ public class InstrumentationApi {
             final File jar = new File(System.getProperty("user.home"), "gross_agent.jar");
 
             LOGGER.info("Attaching instrumentation agent to VM.");
-
-            LOGGER.info(jar.getAbsolutePath());
+            
             IOUtils.write(IOUtils.toByteArray(GrossFabricHacks.class.getClassLoader().getResource("jars/gross_agent.jar")), new FileOutputStream(jar));
             ByteBuddyAgent.attach(jar, name.substring(0, name.indexOf('@')));
 
             LOGGER.info("Successfully attached instrumentation agent.");
-
+    
+            //noinspection ResultOfMethodCallIgnored
             jar.delete();
 
             final Field field = Class.forName("net.devtech.grossfabrichacks.instrumentation.InstrumentationAgent", false, FabricLoader.class.getClassLoader()).getDeclaredField("instrumentation");

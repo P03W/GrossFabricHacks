@@ -1,3 +1,5 @@
+//file:noinspection GradlePackageUpdate
+//file:noinspection GroovyAssignabilityCheck
 plugins {
     id "fabric-loom" version "0.9-SNAPSHOT"
     id "maven-publish"
@@ -26,8 +28,8 @@ dependencies {
 
     implementation(include("net.bytebuddy:byte-buddy-agent:+"))
 
-    //include(implementation("user11681:reflect:0.2.0"))
     modImplementation(include("user11681:dynamic-entry:+")) {
+        // Broken mixins, and its just dev space extras
         transitive = false
     }
 }
