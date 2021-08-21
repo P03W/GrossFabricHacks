@@ -24,8 +24,6 @@ dependencies {
     compileOnly("com.google.code.findbugs:jsr305:+")
     compileOnly("org.jetbrains:annotations:+")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:+")
-
     implementation(include("net.bytebuddy:byte-buddy-agent:+"))
 
     modImplementation(include("user11681:dynamic-entry:+")) {
