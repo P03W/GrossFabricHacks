@@ -1,6 +1,6 @@
 package com.github.p03w.masm.mixin;
 
-import com.github.p03w.masm.GrossFabricHacks;
+import com.github.p03w.masm.MassASM;
 import com.github.p03w.masm.entrypoints.TransformerRegistrar;
 import com.github.p03w.masm.transformer.TransformerApi;
 import org.objectweb.asm.tree.ClassNode;
@@ -11,7 +11,7 @@ import user11681.dynamicentry.DynamicEntry;
 import java.util.List;
 import java.util.Set;
 
-public class GrossFabricHacksPlugin implements IMixinConfigPlugin {
+public class MassASMPlugin implements IMixinConfigPlugin {
     @Override
     public void onLoad(String mixinPackage) {}
     
@@ -40,11 +40,11 @@ public class GrossFabricHacksPlugin implements IMixinConfigPlugin {
     public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {}
     
     static {
-        GrossFabricHacks.State.mixinLoaded = true;
+        MassASM.State.mixinLoaded = true;
     
         DynamicEntry.execute("masm:register", TransformerRegistrar.class, TransformerRegistrar::registerTransformers);
         
-        if (GrossFabricHacks.State.shouldWrite || GrossFabricHacks.State.manualLoad) {
+        if (MassASM.State.shouldWrite || MassASM.State.manualLoad) {
             TransformerApi.manualLoad();
         }
     }

@@ -21,7 +21,7 @@
         "masm.mixin.json"
     ],
     "languageAdapters": {
-        "masm": "net.devtech.grossfabrichacks.GrossFabricHacks"
+        "masm": "com.github.p03w.masm.MassASM"
     },
     "custom": {
         "modmenu:api": true

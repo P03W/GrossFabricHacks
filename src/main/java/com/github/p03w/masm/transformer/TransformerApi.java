@@ -1,6 +1,6 @@
 package com.github.p03w.masm.transformer;
 
-import com.github.p03w.masm.GrossFabricHacks;
+import com.github.p03w.masm.MassASM;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.transformer.HackedMixinTransformer;
@@ -13,14 +13,14 @@ public class TransformerApi {
 	 * manually load the class, causing it to inject itself into the class loading pipe.
 	 */
 	public static void manualLoad() {
-		if (GrossFabricHacks.State.mixinLoaded) {
+		if (MassASM.State.mixinLoaded) {
 			try {
 				Class.forName("org.spongepowered.asm.mixin.transformer.HackedMixinTransformer");
 			} catch (final ClassNotFoundException exception) {
 				throw new RuntimeException(exception);
 			}
 		} else {
-			GrossFabricHacks.State.manualLoad = true;
+			MassASM.State.manualLoad = true;
 		}
 	}
 
@@ -28,12 +28,12 @@ public class TransformerApi {
 	 * transformers are called before mixin application with the class' classnode
 	 */
 	public static void registerPreMixinAsmClassTransformer(AsmClassTransformer transformer) {
-		if (GrossFabricHacks.State.preMixinAsmClassTransformer == null) {
-			GrossFabricHacks.State.preMixinAsmClassTransformer = transformer;
-			GrossFabricHacks.State.transformPreMixinAsmClass = true;
-			GrossFabricHacks.State.shouldWrite = true;
+		if (MassASM.State.preMixinAsmClassTransformer == null) {
+			MassASM.State.preMixinAsmClassTransformer = transformer;
+			MassASM.State.transformPreMixinAsmClass = true;
+			MassASM.State.shouldWrite = true;
 		} else {
-			GrossFabricHacks.State.preMixinAsmClassTransformer = GrossFabricHacks.State.preMixinAsmClassTransformer.andThen(transformer);
+			MassASM.State.preMixinAsmClassTransformer = MassASM.State.preMixinAsmClassTransformer.andThen(transformer);
 		}
 	}
 
@@ -41,12 +41,12 @@ public class TransformerApi {
 	 * transformer is called right after mixin application.
 	 */
 	public static void registerPostMixinAsmClassTransformer(AsmClassTransformer transformer) {
-		if (GrossFabricHacks.State.postMixinAsmClassTransformer == null) {
-			GrossFabricHacks.State.postMixinAsmClassTransformer = transformer;
-			GrossFabricHacks.State.transformPostMixinAsmClass = true;
-			GrossFabricHacks.State.shouldWrite = true;
+		if (MassASM.State.postMixinAsmClassTransformer == null) {
+			MassASM.State.postMixinAsmClassTransformer = transformer;
+			MassASM.State.transformPostMixinAsmClass = true;
+			MassASM.State.shouldWrite = true;
 		} else {
-			GrossFabricHacks.State.postMixinAsmClassTransformer = GrossFabricHacks.State.postMixinAsmClassTransformer.andThen(transformer);
+			MassASM.State.postMixinAsmClassTransformer = MassASM.State.postMixinAsmClassTransformer.andThen(transformer);
 		}
 	}
 

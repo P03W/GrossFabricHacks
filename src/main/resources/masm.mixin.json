@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "net.devtech.grossfabrichacks.mixin",
+  "package": "com.github.p03w.masm.mixin",
   "compatibilityLevel": "JAVA_8",
-  "plugin": "com.github.p03w.masm.mixin.GrossFabricHacksPlugin"
+  "plugin": "com.github.p03w.masm.mixin.MassASMPlugin"
 }

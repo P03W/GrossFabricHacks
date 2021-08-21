@@ -7,7 +7,7 @@ import net.fabricmc.loader.api.LanguageAdapter;
 
 import java.io.InputStream;
 
-public class GrossFabricHacks implements LanguageAdapter {
+public class MassASM implements LanguageAdapter {
     @Override
     public native <T> T create(net.fabricmc.loader.api.ModContainer mod, String value, Class<T> type);
 
@@ -25,13 +25,13 @@ public class GrossFabricHacks implements LanguageAdapter {
     static {
         try {
             final ClassLoader applicationClassLoader = FabricLoader.class.getClassLoader();
-            final ClassLoader KnotClassLoader = GrossFabricHacks.class.getClassLoader();
+            final ClassLoader KnotClassLoader = MassASM.class.getClassLoader();
 
             final String[] classes = {
                 "net.gudenau.lib.unsafe.Unsafe",
-                "net.devtech.grossfabrichacks.GrossFabricHacks$State",
-                "net.devtech.grossfabrichacks.unsafe.UnsafeUtil",
-                "net.devtech.grossfabrichacks.unsafe.UnsafeUtil$FirstInt"
+                "com.github.p03w.masm.MassASM$State",
+                "com.github.p03w.masm.unsafe.UnsafeUtil",
+                "com.github.p03w.masm.unsafe.UnsafeUtil$FirstInt"
             };
 
             final int classCount = classes.length;
@@ -39,13 +39,15 @@ public class GrossFabricHacks implements LanguageAdapter {
             for (int i = FabricLoader.getInstance().isDevelopmentEnvironment() ? 1 : 0; i < classCount; i++) {
                 final String name = classes[i];
                 final InputStream classStream = KnotClassLoader.getResourceAsStream(name.replace('.', '/') + ".class");
-                assert classStream != null;
+                if (classStream == null) {
+                    throw new IllegalStateException("Could not find class " + name);
+                }
                 final byte[] bytecode = new byte[classStream.available()];
     
                 //noinspection StatementWithEmptyBody
                 while (classStream.read(bytecode) != -1) {}
 
-                UnsafeUtil.defineClass(name, bytecode, applicationClassLoader, GrossFabricHacks.class.getProtectionDomain());
+                UnsafeUtil.defineClass(name, bytecode, applicationClassLoader, MassASM.class.getProtectionDomain());
             }
         } catch (final Throwable throwable) {
             throw new RuntimeException(throwable);

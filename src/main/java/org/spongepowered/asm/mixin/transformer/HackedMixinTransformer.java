@@ -1,6 +1,6 @@
 package org.spongepowered.asm.mixin.transformer;
 
-import com.github.p03w.masm.GrossFabricHacks;
+import com.github.p03w.masm.MassASM;
 import com.github.p03w.masm.unsafe.UnsafeUtil;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.MixinEnvironment;
@@ -25,15 +25,15 @@ public class HackedMixinTransformer extends MixinTransformer {
         final String name = classNode.name;
 
         // return immediately to reduce jumps and assignments
-        if (GrossFabricHacks.State.shouldWrite) {
-            if (GrossFabricHacks.State.transformPreMixinAsmClass) {
-                GrossFabricHacks.State.preMixinAsmClassTransformer.transform(name, classNode);
+        if (MassASM.State.shouldWrite) {
+            if (MassASM.State.transformPreMixinAsmClass) {
+                MassASM.State.preMixinAsmClassTransformer.transform(name, classNode);
             }
 
             processor.applyMixins(environment, name.replace('/', '.'), classNode);
 
-            if (GrossFabricHacks.State.transformPostMixinAsmClass) {
-                GrossFabricHacks.State.postMixinAsmClassTransformer.transform(name, classNode);
+            if (MassASM.State.transformPostMixinAsmClass) {
+                MassASM.State.postMixinAsmClassTransformer.transform(name, classNode);
             }
 
             return this.writeClass(classNode);
